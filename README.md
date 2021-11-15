@@ -11,5 +11,7 @@ Node.js を 使って、最小構成の Web API を作り,そこからデータ�
 - エンドポイント
 - リクエストとレスポンス
 - CORS
+- express
+- nodemon
 
 https://github.com/kei-nishikawa48/nodeApiPractice
