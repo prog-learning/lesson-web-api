@@ -1,22 +1,26 @@
-const http = require('http');
+const express = require('express');
+const app = express();
+const port = 3000;
+const cors = require('cors');
 
-/* httpを使ってサーバーを作成 */
-const server = http.createServer((request, response) => {
-  console.log(request.url);
-  response.writeHead(200, {
-    'Access-Control-Allow-Origin': '*',
-  });
-  if (request.url === '/') {
-    response.end('Hello World');
-  } else if (request.url === '/user') {
-    response.end(JSON.stringify({ name: 'Steve Nobs', age: 30 }));
-  } else {
-    response.statusCode = 404;
-    response.end('Not Found');
-  }
+const todoData = [
+  { id: 0, text: 'Buy milk', done: false },
+  { id: 1, text: 'Buy eggs', done: false },
+  { id: 2, text: 'Buy bread', done: false },
+  { id: 3, text: 'Buy cheese', done: false },
+];
+
+app.use(cors());
+
+app.get('/', (req, res) => {
+  res.send('Hello Express');
 });
 
-/* 作ったサーバーを8000番ポートで起動 */
-server.listen(8000, () => {
-  console.log('http://localhost:8000 で起動');
+app.get('/todos', (req, res) => {
+  res.json(todoData);
+});
+
+/* サーバーを起動する */
+app.listen(port, () => {
+  console.log(`http://localhost:${port} でサーバーを起動しました！`);
 });

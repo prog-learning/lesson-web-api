@@ -1,18 +1,20 @@
 // console.log('Hello World!');
 
-/* データを受け取ってコンソールに出力する処理 */
-const getHello = async () => {
-  const response = await fetch('http://localhost:8000/');
-  const data = await response.text();
-  console.log(data);
-};
-getHello();
+const getTodoList = async () => {
+  const response = await fetch('http://localhost:3000/todos');
+  const todos = await response.json();
+  console.log(todos);
 
-/* データを受け取って表示させる処理 */
-const getUser = async () => {
-  const response = await fetch('http://localhost:8000/user');
-  const data = await response.json();
-  console.log(data);
-  document.getElementById('root').innerHTML = `<p>私は${data.name}です。</p>`;
+  const todoList = document.getElementById('todo_list');
+  todoList.innerHTML = ''; // clear the list
+
+  todos.forEach((todo) => {
+    const todoElement = document.createElement('li');
+    todoElement.innerHTML = `
+      <input type="checkbox" ${todo.done ? 'checked' : ''}>
+      <span>${todo.text}</span>
+      <button>delete</button>
+    `;
+    todoList.appendChild(todoElement);
+  });
 };
-getUser();
