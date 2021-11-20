@@ -7,9 +7,31 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>My WebSite</h1>
-    <p>ここはWebサイトです</p>
-    <div id="root"></div>
+    <h1>TO DO LIST.</h1>
+    <p>私のやることリスト</p>
+    <div id="root">
+      <input id="todo_text" type="text" />
+      <button onclick="postTodo()">add</button>
+      <hr />
+      <button onclick="getTodoList()">fetch!!</button>
+      <ul id="todo_list" style="list-style: none">
+        <li>
+          <input type="checkbox" checked />
+          <span>DEMO TEXT1</span>
+          <button>delete</button>
+        </li>
+        <li>
+          <input type="checkbox" />
+          <span>DEMO TEXT2</span>
+          <button>delete</button>
+        </li>
+        <li>
+          <input type="checkbox" checked />
+          <span>DEMO TEXT3</span>
+          <button>delete</button>
+        </li>
+      </ul>
+    </div>
     <script src="main.js"></script>
   </body>
 </html>
