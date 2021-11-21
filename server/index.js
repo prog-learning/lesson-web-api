@@ -42,7 +42,14 @@ app.delete('/todos/:todoId', (req, res) => {
   const deleteId = Number(req.params.todoId);
   const todoIndex = todoData.findIndex((todo) => todo.id === deleteId);
   todoData.splice(todoIndex, 1);
-  console.log(todoData);
+  res.end();
+});
+
+/* 指定したTODOのdoneを切り替える */
+app.put('/todos/:todoId', (req, res) => {
+  const updateId = Number(req.params.todoId);
+  const todoIndex = todoData.findIndex((todo) => todo.id === updateId);
+  todoData[todoIndex].done = !todoData[todoIndex].done;
   res.end();
 });
 

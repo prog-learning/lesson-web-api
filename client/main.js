@@ -21,6 +21,9 @@ const getTodoList = async () => {
     todoElement.querySelector('button').addEventListener('click', () => {
       deleteTodo(todo.id);
     });
+    todoElement.querySelector('input').addEventListener('click', () => {
+      toggleTodo(todo.id, todo.done);
+    });
     todoList.appendChild(todoElement);
   });
 };
@@ -47,6 +50,16 @@ const addTodo = async () => {
 const deleteTodo = async (todoId) => {
   await fetch(`http://localhost:3000/todos/${todoId}`, {
     method: 'DELETE',
+  });
+
+  /* 画面を更新する */
+  await getTodoList();
+};
+
+/* 指定したTODOのdoneを切り替える */
+const toggleTodo = async (todoId) => {
+  await fetch(`http://localhost:3000/todos/${todoId}`, {
+    method: 'PUT',
   });
 
   /* 画面を更新する */
