@@ -39,8 +39,6 @@ app.post('/todos', (req, res) => {
 
 /* 指定したTODOを削除する */
 app.delete('/todos/:todoId', (req, res) => {
-  console.log(req.params.todoId);
-
   const deleteId = Number(req.params.todoId);
   const todoIndex = todoData.findIndex((todo) => todo.id === deleteId);
   todoData.splice(todoIndex, 1);

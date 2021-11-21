@@ -43,6 +43,7 @@ const addTodo = async () => {
   document.getElementById('todo_text').value = '';
 };
 
+/* 指定したTODOを削除する */
 const deleteTodo = async (todoId) => {
   await fetch(`http://localhost:3000/todos/${todoId}`, {
     method: 'DELETE',
