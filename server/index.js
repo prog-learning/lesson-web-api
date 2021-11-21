@@ -11,6 +11,7 @@ const todoData = [
 ];
 
 app.use(cors());
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('Hello Express');
@@ -18,6 +19,22 @@ app.get('/', (req, res) => {
 
 app.get('/todos', (req, res) => {
   res.json(todoData);
+});
+
+app.post('/todos', (req, res) => {
+  const currentIds = todoData.map((todo) => todo.id);
+  let newId = Math.max(...currentIds) + 1;
+  if (currentIds.length === 0) {
+    newId = 0;
+  }
+  const newTodo = {
+    id: newId,
+    text: req.body.text,
+    done: false,
+  };
+  todoData.push(newTodo);
+  console.log(todoData);
+  res.end();
 });
 
 /* サーバーを起動する */
