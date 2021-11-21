@@ -37,6 +37,17 @@ app.post('/todos', (req, res) => {
   res.end();
 });
 
+/* 指定したTODOを削除する */
+app.delete('/todos/:todoId', (req, res) => {
+  console.log(req.params.todoId);
+
+  const deleteId = Number(req.params.todoId);
+  const todoIndex = todoData.findIndex((todo) => todo.id === deleteId);
+  todoData.splice(todoIndex, 1);
+  console.log(todoData);
+  res.end();
+});
+
 /* サーバーを起動する */
 app.listen(port, () => {
   console.log(`http://localhost:${port} でサーバーを起動しました！`);

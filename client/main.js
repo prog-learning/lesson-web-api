@@ -18,6 +18,9 @@ const getTodoList = async () => {
       <span>${todo.text}</span>
       <button>delete</button>
     `;
+    todoElement.querySelector('button').addEventListener('click', () => {
+      deleteTodo(todo.id);
+    });
     todoList.appendChild(todoElement);
   });
 };
@@ -40,3 +43,11 @@ const addTodo = async () => {
   document.getElementById('todo_text').value = '';
 };
 
+const deleteTodo = async (todoId) => {
+  await fetch(`http://localhost:3000/todos/${todoId}`, {
+    method: 'DELETE',
+  });
+
+  /* 画面を更新する */
+  await getTodoList();
+};
