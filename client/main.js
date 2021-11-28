@@ -31,22 +31,36 @@ const getTodoList = async () => {
 /* TODOのデータを新規追加する */
 const addTodo = async () => {
   const text = document.getElementById('todo_text').value;
-  await fetch('http://localhost:3000/todos', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ text }),
-  });
+  try {
+    console.log(text);
+    // if (!text) throw new Error('text is empty'); // client-side validation
 
-  /* 画面を更新する */
-  await getTodoList();
+    const response = await fetch('http://localhost:3000/todos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text }),
+    });
 
-  /* inputのテキストを空にする */
-  document.getElementById('todo_text').value = '';
+    /* エラーかどうかを判定する */
+    if (response.status !== 200) {
+      const json = await response.json();
+      throw new Error(json.message);
+    }
+
+    /* 画面を更新する */
+    await getTodoList();
+
+    /* inputのテキストを空にする */
+    document.getElementById('todo_text').value = '';
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /* 指定したTODOを削除する */
+
 const deleteTodo = async (todoId) => {
   await fetch(`http://localhost:3000/todos/${todoId}`, {
     method: 'DELETE',

@@ -22,6 +22,15 @@ app.get('/todos', (req, res) => {
 });
 
 app.post('/todos', (req, res) => {
+  const bodyText = req.body.text;
+
+  /* server-side validation */
+  if (!bodyText) {
+    res.status(400).json({
+      message: 'テキストがありません！',
+    });
+  }
+
   const currentIds = todoData.map((todo) => todo.id);
   let newId = Math.max(...currentIds) + 1;
   if (currentIds.length === 0) {
@@ -29,12 +38,12 @@ app.post('/todos', (req, res) => {
   }
   const newTodo = {
     id: newId,
-    text: req.body.text,
+    text: bodyText,
     done: false,
   };
   todoData.push(newTodo);
   console.log(todoData);
-  res.end();
+  res.status(200).end();
 });
 
 /* 指定したTODOを削除する */
