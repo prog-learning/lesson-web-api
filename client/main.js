@@ -40,6 +40,8 @@ const postTodo = async () => {
     /* inputの中身を取得 */
     const text = document.getElementById('todo_text').value;
     console.log(text);
+    // if (!text) throw new Error('TODOを入力してください'); // clientのバリデーション
+
     /* 送信する処理 */
     const response = await fetch('http://localhost:3000/todos', {
       method: 'POST',
@@ -49,17 +51,18 @@ const postTodo = async () => {
       },
       body: JSON.stringify({ text }),
     });
-    const status = response.json();
-    console.log(status);
+    if (response.status !== 200) {
+      const data = await response.json();
+      console.log(data);
+      throw new Error(data.message);
+    }
 
     /* 追加が成功したら,最新のデータを取得して表示する */
     await getTodoList();
     /* inputを空にする */
     document.getElementById('todo_text').value = '';
   } catch (error) {
-    console.log('error');
     console.error(error);
-    console.error(response);
   }
 };
 

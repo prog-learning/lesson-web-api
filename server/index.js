@@ -50,9 +50,10 @@ app.post('/todos', (req, res) => {
   /* bodyにデータが送られている */
   const bodyText = req.body?.text;
   console.log('got data: ', bodyText);
+
+  /* serverのバリデーション */
   if (!bodyText) {
     res.status(400).json({
-      status: 400,
       message: 'テキストがありません！',
     });
     return;
